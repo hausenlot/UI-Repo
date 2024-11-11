@@ -1,54 +1,53 @@
-// document.addEventListener("DOMContentLoaded", async () => {
-//   // Fetch JSON data
-//   const response = await fetch('data/data.json');
-//   const data = await response.json();
-  
-//   // Select the template and container
-//   const template = document.getElementById("item-template");
-//   const container = document.getElementById("container"); // Ensure you have a container div in HTML
-
-//   // Iterate over each object and render it
-//   data.forEach(item => {
-//     const clone = template.content.cloneNode(true);
-//     clone.querySelector(".item-image").src = item.image;
-//     clone.querySelector(".item-title").textContent = item.title;
-//     clone.querySelector(".item-description").textContent = item.description;
-//     container.appendChild(clone);
-//   });
-// });
-
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   const contentContainer = document.getElementById("content-container");
-
-  // Function to load data from JSON and render it
-  async function loadData(sectionId) {
+  try {
     const response = await fetch('data/data.json');
     const data = await response.json();
+    const container = document.getElementById("container");
 
-    // Filter or find the relevant data for the section
+    data.forEach(item => {
+      const content = createTemplate(item);
+      console.log(content.id);
+      
+      container.appendChild(content);
+
+      document.getElementById(content.id).addEventListener("click", () => {
+        loadData(item.id);
+      });
+    });
+  } catch (error) {
+    console.error('Error loading or processing data:', error);
+  }
+
+  async function loadData(sectionId) {
+    const response = await fetch('data/content.json');
+    const data = await response.json();
     const sectionData = data.find(item => item.id === sectionId);
 
     const content = urlTemplate(sectionData);
 
-    contentContainer.innerHTML = content; // Inject the content
+    contentContainer.innerHTML = content;
   }
-
-  // Event listeners for each link
-  document.getElementById("load-section-1").addEventListener("click", () => {
-    loadData(1); // Load data for section 1
-  });
-
-  document.getElementById("load-section-2").addEventListener("click", () => {
-    loadData(2); // Load data for section 2
-  });
 });
 
+function createTemplate(sectionData) {
+  const div = document.createElement('div');
+  div.id = `div-section-${sectionData.id}`;
+  div.className = 'border border-gray-300 rounded-lg p-4 m-4 max-w-sm shadow-sm';
 
-// urlTemplate function that takes in section data
+  div.innerHTML = `
+    <img src="${sectionData.image || 'placeholder.jpg'}" class="w-full h-auto rounded-md" alt="${sectionData.title}"/>
+    <h2 class="mt-4 mb-2 text-gray-800">${sectionData.id}</h2>
+    <p class="text-gray-600">${sectionData.title}</p>
+  `;
+  
+  return div;
+}
+
 function urlTemplate(sectionData) {
-  // You can generate dynamic content here based on sectionData
   return `
     <h2>${sectionData.title}</h2>
-    <p>${sectionData.description}</p>
+    <p>${sectionData.content}</p>
   `;
 }
+
