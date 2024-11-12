@@ -57,7 +57,7 @@ function componentContainer(sectionData) {
 
     itemDiv.innerHTML = `
       <h3 class="text-lg font-semibold text-gray-800">${item.title}</h3>
-      <button id="component-btn-${index}" class="bg-blue-500 text-white px-4 py-2 rounded mt-2">${item.title}</button>
+      ${item.code} <!-- Render the button HTML from JSON -->
       <button id="show-syntax-${index}" class="text-blue-600 underline mt-2 ml-4 cursor-pointer">Show Syntax</button>
       <pre id="code-${index}" class="text-gray-600 bg-gray-100 p-2 rounded mt-2 hidden">${escapeHTML(item.code)}</pre>
     `;
