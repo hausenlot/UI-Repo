@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "title": "buttons",
+    "content": [
+      {
+        "id": 1,
+        "title": "Standard Button",
+        "code": "<button class='bg-blue-500 text-white px-4 py-2 rounded mt-2'>Standard Button</button>"
+      },
+      {
+        "id": 2,
+        "title": "Fancy Button",
+        "code": "This is its syntax"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "breadcrumbs",
+    "content": "This are the breadcrumbs that are available"
+  }
+]
