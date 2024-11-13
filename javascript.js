@@ -1,13 +1,18 @@
 document.addEventListener("DOMContentLoaded", async () => {
   const container = document.getElementById("container");
   try {
-    const response = await fetch('data/components.json');
-    const data = await response.json();
-    const componentContainer = document.getElementById("component-container");
+    const responseComponent = await fetch('data/components.json');
+    const componentData = await responseComponent.json();
+
+    const responseComponentList = await fetch('data/component-list.json');
+    const componentListData = await responseComponentList.json();
+
+    const componentContainer = document.querySelector(".component-container");
 
     // iterate the components I have as cards and event listener
-    data.forEach(component => {
-      const content = createTemplate(component);
+    componentData.forEach(component => {
+      const availableComponent = componentListData.find(componentList=> componentList.id === component.id).content.length;
+      const content = createTemplate(component, availableComponent);
       componentContainer.appendChild(content);
       document.getElementById(content.id).addEventListener("click", () => {
         loadComponent(component.id);
@@ -23,21 +28,22 @@ document.addEventListener("DOMContentLoaded", async () => {
     const response = await fetch('data/component-list.json');
     const data = await response.json();
     const sectionData = data.find(component => component.id === componentList);
-    
     const content = componentContainer(sectionData);
     container.appendChild(content);
   }
+
+
+
 });
 
-function createTemplate(component) {
+function createTemplate(component, availableComponent) {
   const div = document.createElement('div');
   div.id = `div-section-${component.id}`;
-  div.className = 'border border-gray-300 rounded-lg p-4 m-4 max-w-sm shadow-sm';
+  div.className = 'cards';
 
   div.innerHTML = `
-    <img src="${component.image || 'placeholder.jpg'}" class="w-full h-auto rounded-md" alt="${component.title}"/>
-    <h2 class="mt-4 mb-2 text-gray-800">${component.id}</h2>
-    <p class="text-gray-600">${component.title}</p>
+    <h2 class="text-xl font-bold text-dark-highlight">${component.title}</h2>
+    <p>Available Components: ${availableComponent}</p>
   `;
   
   return div;
@@ -47,24 +53,31 @@ function createTemplate(component) {
 function componentContainer(sectionData) {
   const div = document.createElement('div');
   div.id = `${sectionData.title}-container`;
-  div.className = 'border border-gray-300 rounded-lg p-4 m-4 max-w-sm shadow-sm';
+  div.className = 'content-class';
 
   div.innerHTML = `<h2 class="text-xl font-bold mb-4">${sectionData.title.toUpperCase()}</h2>`;
 
   sectionData.content.forEach((item, index) => {
+    const itemContainerDiv = document.createElement('div');
+    const itemContainerHeader = document.createElement('div');
+    itemContainerHeader.className = 'item-container-header'
+    itemContainerHeader.innerHTML = `
+      <h3 class="text-lg font-semibold text-gray-800">${item.title}</h3>
+      <button id="show-syntax-${index}" class="text-blue-600 underline cursor-pointer">Show Syntax</button>
+    `;
+    itemContainerDiv.appendChild(itemContainerHeader);
+
     const itemDiv = document.createElement('div');
     itemDiv.className = 'mb-4 p-2 border border-gray-200 rounded-md';
-
     itemDiv.innerHTML = `
-      <h3 class="text-lg font-semibold text-gray-800">${item.title}</h3>
-      ${item.code} <!-- Render the button HTML from JSON -->
-      <button id="show-syntax-${index}" class="text-blue-600 underline mt-2 ml-4 cursor-pointer">Show Syntax</button>
+      ${item.code}
       <pre id="code-${index}" class="text-gray-600 bg-gray-100 p-2 rounded mt-2 hidden">${escapeHTML(item.code)}</pre>
     `;
 
-    div.appendChild(itemDiv);
+    itemContainerDiv.appendChild(itemDiv);
+    div.appendChild(itemContainerDiv);
 
-    const syntaxButton = itemDiv.querySelector(`#show-syntax-${index}`);
+    const syntaxButton = itemContainerDiv.querySelector(`#show-syntax-${index}`);
     const codeElement = itemDiv.querySelector(`#code-${index}`);
 
     if (syntaxButton && codeElement) {
