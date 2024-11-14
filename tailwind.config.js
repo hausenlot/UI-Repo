@@ -16,6 +16,9 @@
     ],
     theme: {
       extend: {
+        rotate: {
+          '360': '360deg',
+        },
         colors: {
           dark: {
             background: '#1a1a1a',
