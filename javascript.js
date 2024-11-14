@@ -31,9 +31,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     const content = componentContainer(sectionData);
     container.appendChild(content);
   }
-
-
-
 });
 
 function createTemplate(component, availableComponent) {
@@ -51,48 +48,63 @@ function createTemplate(component, availableComponent) {
 
 // This is going to be a Whole HTML and inside of it we will load the component-list.json sectionData.id then iterate sectionData.content
 function componentContainer(sectionData) {
-  const div = document.createElement('div');
+  const div = document.createElement('div'); // Main Div
   div.id = `${sectionData.title}-container`;
   div.className = 'content-class';
 
-  div.innerHTML = `<h2 class="text-xl font-bold mb-4">${sectionData.title.toUpperCase()}</h2>`;
+  div.innerHTML = `<h2 class="text-xl font-bold mb-4 text-dark-highlight">${sectionData.title.toUpperCase()}</h2>`;
 
+  // Building the Content Div
   sectionData.content.forEach((item, index) => {
-    const itemContainerDiv = document.createElement('div');
-    const itemContainerHeader = document.createElement('div');
-    itemContainerHeader.className = 'item-container-header'
-    itemContainerHeader.innerHTML = `
-      <h3 class="text-lg font-semibold text-gray-800">${item.title}</h3>
-      <button id="show-syntax-${index}" class="text-blue-600 underline cursor-pointer">Show Syntax</button>
+    const itemContainerDiv = document.createElement('div'); // Container for item div
+    const itemContainerHeader = document.createElement('div'); // Header for toggle button
+    itemContainerHeader.className = 'item-container-header';
+    itemContainerHeader.innerHTML = ` 
+      <h3 class="text-lg font-semibold text-dark-primary">${item.title}</h3>
+      <button id="toggle-${index}" class="text-blue-600 underline cursor-pointer">Show Syntax</button>
     `;
-    itemContainerDiv.appendChild(itemContainerHeader);
+    itemContainerDiv.appendChild(itemContainerHeader); // Add to item div
 
-    const itemDiv = document.createElement('div');
-    itemDiv.className = 'mb-4 p-2 border border-gray-200 rounded-md';
-    itemDiv.innerHTML = `
-      ${item.code}
-      <pre id="code-${index}" class="text-gray-600 bg-gray-100 p-2 rounded mt-2 hidden">${escapeHTML(item.code)}</pre>
-    `;
+    const itemOuterDiv = document.createElement('div'); // Outer div for component
+    itemOuterDiv.className = 'outer-container';
+    itemContainerDiv.appendChild(itemOuterDiv); // Add to item div
 
-    itemContainerDiv.appendChild(itemDiv);
-    div.appendChild(itemContainerDiv);
+    const itemDiv = document.createElement('div'); // Inner div for outer div
+    itemDiv.className = 'item-component-container';
 
-    const syntaxButton = itemContainerDiv.querySelector(`#show-syntax-${index}`);
-    const codeElement = itemDiv.querySelector(`#code-${index}`);
+    const componentElement = document.createElement('div'); // The actual component
+    componentElement.innerHTML = item.code;
+    componentElement.classList.add('component-view'); // Add a class to identify it
 
-    if (syntaxButton && codeElement) {
-      syntaxButton.addEventListener('click', () => {
-        codeElement.classList.toggle('hidden');
-      });
-    }
+    const syntaxElement = document.createElement('pre'); // Syntax element
+    syntaxElement.id = `code-${index}`;
+    syntaxElement.className = 'text-gray-600 bg-gray-100 p-2 rounded hidden';
+    const formattedCode = item.code.replace(/>\s*</g, '>\n<'); // Breakline for the long ass code
+    syntaxElement.innerText = formattedCode;
+
+    itemDiv.appendChild(componentElement); // Build the inner div
+    itemDiv.appendChild(syntaxElement); // Build the inner div
+    itemOuterDiv.appendChild(itemDiv); // Insert the inner div to outer div
+    div.appendChild(itemContainerDiv); // Added to main div oncee all is div is good to go.
+
+    const toggleButton = itemContainerDiv.querySelector(`#toggle-${index}`);
+    toggleButton.addEventListener('click', () => {
+      const isComponentVisible = !componentElement.classList.contains('hidden');
+
+      componentElement.classList.toggle('hidden', isComponentVisible);
+      syntaxElement.classList.toggle('hidden', !isComponentVisible);
+
+      toggleButton.textContent = isComponentVisible ? 'Show Component' : 'Show Syntax';
+    });
   });
 
   return div;
 }
 
-function escapeHTML(html) {
-  return html
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
-}
+// function escapeHTML(html) {
+//   console.log("Reformating JSON Code");
+//   return html
+//     .replace(/&/g, "&amp;")
+//     .replace(/</g, "&lt;")
+//     .replace(/>/g, "&gt;");
+// }

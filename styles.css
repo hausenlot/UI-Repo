@@ -30,3 +30,11 @@ body {
 .item-container-header {
   @apply flex
 }
+
+.outer-container {
+  @apply w-full h-full text-center
+}
+
+.item-component-container {
+  @apply mb-4 p-2 border border-gray-200 rounded-md h-96
+}
