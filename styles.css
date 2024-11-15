@@ -38,3 +38,52 @@ body {
 .item-component-container {
   @apply mb-4 p-2 border border-gray-200 rounded-md h-96
 }
+
+.syntax-content::-webkit-scrollbar {
+  height: 8px;
+}
+
+.syntax-content::-webkit-scrollbar-track {
+  background: rgb(17, 24, 39);
+}
+
+.syntax-content::-webkit-scrollbar-thumb {
+  background: rgb(55, 65, 81);
+  border-radius: 4px;
+}
+
+.syntax-content::-webkit-scrollbar-thumb:hover {
+  background: rgb(75, 85, 99);
+}
+
+/* Prism.js token styling */
+.syntax-content .token.tag {
+  color: #569cd6;
+}
+
+.syntax-content .token.attr-name {
+  color: #9cdcfe;
+}
+
+.syntax-content .token.attr-value {
+  color: #ce9178;
+}
+
+.syntax-content .token.string {
+  color: #ce9178;
+}
+
+.syntax-content .token.punctuation {
+  color: #808080;
+}
+
+.code-container {
+  transition: all 200ms ease-in-out;
+}
+.syntax-content {
+  white-space: pre;
+  font-family: Consolas, Monaco, 'Courier New', monospace;
+}
+.syntax-content .token {
+  font-family: inherit;
+}

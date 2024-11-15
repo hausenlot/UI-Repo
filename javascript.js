@@ -46,53 +46,77 @@ function createTemplate(component, availableComponent) {
   return div;
 }
 
-// This is going to be a Whole HTML and inside of it we will load the component-list.json sectionData.id then iterate sectionData.content
 function componentContainer(sectionData) {
-  const div = document.createElement('div'); // Main Div
+  const div = document.createElement('div');
   div.id = `${sectionData.title}-container`;
   div.className = 'content-class';
 
   div.innerHTML = `<h2 class="text-xl font-bold mb-4 text-dark-highlight">${sectionData.title.toUpperCase()}</h2>`;
 
-  // Building the Content Div
   sectionData.content.forEach((item, index) => {
-    const itemContainerDiv = document.createElement('div'); // Container for item div
-    const itemContainerHeader = document.createElement('div'); // Header for toggle button
-    itemContainerHeader.className = 'item-container-header';
-    itemContainerHeader.innerHTML = ` 
+    const itemContainerDiv = document.createElement('div');
+    const itemContainerHeader = document.createElement('div');
+    itemContainerHeader.className = 'item-container-header mb-4';
+    itemContainerHeader.innerHTML = `
       <h3 class="text-lg font-semibold text-dark-primary">${item.title}</h3>
-      <button id="toggle-${index}" class="text-blue-600 underline cursor-pointer">Show Syntax</button>
+      <button id="toggle-${index}" class="text-blue-600 hover:text-blue-700 underline cursor-pointer transition-colors">Show Syntax</button>
     `;
-    itemContainerDiv.appendChild(itemContainerHeader); // Add to item div
+    itemContainerDiv.appendChild(itemContainerHeader);
 
-    const itemOuterDiv = document.createElement('div'); // Outer div for component
+    const itemOuterDiv = document.createElement('div');
     itemOuterDiv.className = 'outer-container';
-    itemContainerDiv.appendChild(itemOuterDiv); // Add to item div
+    itemContainerDiv.appendChild(itemOuterDiv);
 
-    const itemDiv = document.createElement('div'); // Inner div for outer div
+    const itemDiv = document.createElement('div');
     itemDiv.className = 'item-component-container';
 
-    const componentElement = document.createElement('div'); // The actual component
+    const componentElement = document.createElement('div');
     componentElement.innerHTML = item.code;
-    componentElement.classList.add('component-view'); // Add a class to identify it
+    componentElement.classList.add('component-view', 'p-4');
 
-    const syntaxElement = document.createElement('pre'); // Syntax element
+    // Create IDE-like container for syntax
+    const codeContainer = document.createElement('div');
+    codeContainer.className = 'code-container hidden rounded-lg overflow-hidden border border-gray-700';
+    
+    const codeHeader = document.createElement('div');
+    codeHeader.className = 'bg-gray-800 px-4 py-2 flex justify-between items-center border-b border-gray-700';
+    codeHeader.innerHTML = `
+      <span class="text-gray-300 text-sm font-mono">HTML</span>
+    `;
+
+    const syntaxElement = document.createElement('pre');
     syntaxElement.id = `code-${index}`;
-    syntaxElement.className = 'text-gray-600 bg-gray-100 p-2 rounded hidden';
-    const formattedCode = item.code.replace(/>\s*</g, '>\n<'); // Breakline for the long ass code
-    syntaxElement.innerText = formattedCode;
+    syntaxElement.className = 'syntax-content bg-gray-900 p-4 overflow-x-auto font-mono text-sm leading-6 text-gray-300';
+    
+    // Format the code with proper indentation
+    const formattedCode = item.code
+      .replace(/></g, '>\n<')
+      .split('\n')
+      .map(line => line.trim())
+      .join('\n');
+    
+    // Apply syntax highlighting
+    const highlightedCode = Prism.highlight(
+      formattedCode,
+      Prism.languages.html,
+      'html'
+    );
+    syntaxElement.innerHTML = highlightedCode;
 
-    itemDiv.appendChild(componentElement); // Build the inner div
-    itemDiv.appendChild(syntaxElement); // Build the inner div
-    itemOuterDiv.appendChild(itemDiv); // Insert the inner div to outer div
-    div.appendChild(itemContainerDiv); // Added to main div oncee all is div is good to go.
+    codeContainer.appendChild(codeHeader);
+    codeContainer.appendChild(syntaxElement);
+
+    itemDiv.appendChild(componentElement);
+    itemDiv.appendChild(codeContainer);
+    itemOuterDiv.appendChild(itemDiv);
+    div.appendChild(itemContainerDiv);
 
     const toggleButton = itemContainerDiv.querySelector(`#toggle-${index}`);
     toggleButton.addEventListener('click', () => {
       const isComponentVisible = !componentElement.classList.contains('hidden');
 
       componentElement.classList.toggle('hidden', isComponentVisible);
-      syntaxElement.classList.toggle('hidden', !isComponentVisible);
+      codeContainer.classList.toggle('hidden', !isComponentVisible);
 
       toggleButton.textContent = isComponentVisible ? 'Show Component' : 'Show Syntax';
     });
@@ -100,6 +124,9 @@ function componentContainer(sectionData) {
 
   return div;
 }
+
+// This is going to be a Whole HTML and inside of it we will load the component-list.json sectionData.id then iterate sectionData.content
+
 
 // function escapeHTML(html) {
 //   console.log("Reformating JSON Code");
