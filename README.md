@@ -13,11 +13,15 @@ Tailwind UI Components repository, Click the component you want then copy paste 
 - Optional Javascript copy paste-able code for components with Javascript
 - Format is going to be a simple HTML.
 - In future I want an option to convert* the tailwind utilities into classic CSS class. *Maybe I can put a hard coded css class too in JSON file.
+- I plan to add some Components that are funny.
 
 # Progress
 - Testing Phase for Partials done
 - Testing Phase for Components preview and syntax fetch via JSON done.
 - Tidying the UI for scalabiity later
+- Added Components for Buttons
+- Added Prism.js for syntax
+- Added Components for Nav header
 
 ## Diary
 ### Day 1
@@ -31,3 +35,9 @@ Tailwind UI Components repository, Click the component you want then copy paste 
 - Troubles in loading the classes in JSON directly. Problem solve by scanning the data folder and adding safelist in tailwind.config.js
 ### Day 3
 - Nothing serious Just tidying up the UI so later I will just add and add more UI components in JSON file.
+### Day 4
+- Added more components for buttons
+### Day 5
+- Ask claude for prism.js and styling the syntax container
+- Added a Testing div for the components that I will paste inside the component-list.json
+- Adjust the syntax container to overflow via y axis too since the syntaxes are getting longer and longer

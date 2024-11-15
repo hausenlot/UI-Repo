@@ -45,6 +45,7 @@ body {
   /* background: #282c34; /* One Dark Pro theme */
   /* background: #292d3e; /* Material Theme darker */
   transition: all 200ms ease-in-out;
+  @apply h-90 overflow-y-auto
 }
 
 .code-container .bg-gray-800 {
@@ -62,6 +63,8 @@ body {
   white-space: pre;
   font-family: Consolas, Monaco, 'Courier New', monospace;
   padding: 1rem;
+  text-align: left;
+  
 }
 
 .syntax-content::-webkit-scrollbar {
@@ -79,6 +82,23 @@ body {
 
 .syntax-content::-webkit-scrollbar-thumb:hover {
   background: #4a4a4a;
+}
+
+.code-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.code-container::-webkit-scrollbar-track {
+  background: #1e1e1e;
+}
+
+.code-container::-webkit-scrollbar-thumb {
+  background: #424242;
+  border-radius: 4px;
+}
+
+.code-container::-webkit-scrollbar-thumb:hover {
+  background: #4f4f4f;
 }
 
 /* Prism.js token styling */
