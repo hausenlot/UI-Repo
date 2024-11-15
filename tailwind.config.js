@@ -19,6 +19,9 @@
         rotate: {
           '360': '360deg',
         },
+        height: {
+          '90' : '23rem',
+        },
         colors: {
           dark: {
             background: '#1a1a1a',
