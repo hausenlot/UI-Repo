@@ -39,21 +39,46 @@ body {
   @apply mb-4 p-2 border border-gray-200 rounded-md h-96
 }
 
+.code-container {
+  background: #1e1e1e; /* VS Code default dark theme background */
+  /* background: #0d1117; /* GitHub dark theme */
+  /* background: #282c34; /* One Dark Pro theme */
+  /* background: #292d3e; /* Material Theme darker */
+  transition: all 200ms ease-in-out;
+}
+
+.code-container .bg-gray-800 {
+  background: #2d2d2d; /* VS Code darker header */
+  /* background: #161b22; /* GitHub dark header */
+  /* background: #21252b; /* One Dark Pro header */
+  /* background: #1f2233; /* Material Theme header */
+}
+
+.syntax-content {
+  background: #1e1e1e; /* VS Code default dark theme */
+  /* background: #0d1117; /* GitHub dark theme */
+  /* background: #282c34; /* One Dark Pro theme */
+  /* background: #292d3e; /* Material Theme darker */
+  white-space: pre;
+  font-family: Consolas, Monaco, 'Courier New', monospace;
+  padding: 1rem;
+}
+
 .syntax-content::-webkit-scrollbar {
   height: 8px;
 }
 
 .syntax-content::-webkit-scrollbar-track {
-  background: rgb(17, 24, 39);
+  background: #1e1e1e;
 }
 
 .syntax-content::-webkit-scrollbar-thumb {
-  background: rgb(55, 65, 81);
+  background: #404040;
   border-radius: 4px;
 }
 
 .syntax-content::-webkit-scrollbar-thumb:hover {
-  background: rgb(75, 85, 99);
+  background: #4a4a4a;
 }
 
 /* Prism.js token styling */
