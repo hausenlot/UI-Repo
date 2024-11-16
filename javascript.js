@@ -104,23 +104,85 @@ function componentContainer(sectionData) {
     codeContainer.appendChild(codeHeader); // Building the Syntax Element
     codeContainer.appendChild(syntaxElement); // Building the Syntax Element
 
+    // Add JavaScript syntax container if codeJs exists
+    let jsContainer;
+    if (item.codeJs) {
+      const jsToggleButton = document.createElement('button');
+      jsToggleButton.id = `toggle-js-${index}`;
+      jsToggleButton.className = 'text-blue-600 hover:text-blue-700 underline cursor-pointer transition-colors';
+      jsToggleButton.textContent = 'Show JavaScript';
+
+      itemContainerHeader.appendChild(jsToggleButton);
+
+      jsContainer = document.createElement('div'); // JS Syntax Element
+      jsContainer.id = `js-code-container-${item.id}`;
+      jsContainer.className = 'code-container hidden rounded-lg overflow-hidden border border-gray-700';
+      
+      const jsHeader = document.createElement('div'); // Header for JS Syntax Element
+      jsHeader.className = 'bg-gray-800 px-4 py-2 flex justify-between items-center border-b border-gray-700';
+      jsHeader.innerHTML = `
+        <span class="text-gray-300 text-sm font-mono">JavaScript</span>
+      `;
+
+      const jsSyntaxElement = document.createElement('pre'); // Code element for JS Syntax
+      jsSyntaxElement.id = `code-js-${index}`;
+      jsSyntaxElement.className = 'syntax-content bg-gray-900 p-4 overflow-x-auto overflow-y-auto font-mono text-sm leading-6 text-gray-300';
+      
+      // Format and highlight the JavaScript code
+      const formattedJsCode = item.codeJs
+          .replace(/;/g, ';\n')  // Add line break after semicolons
+          .replace(/{/g, '{\n')  // Add line break after opening braces
+          .replace(/}/g, '\n}')  // Add line break before closing braces
+          .split('\n')
+          .map(line => line.trim())
+          .join('\n');
+        
+      const highlightedJsCode = Prism.highlight(formattedJsCode, Prism.languages.javascript, 'javascript');
+      jsSyntaxElement.innerHTML = highlightedJsCode;
+
+      jsContainer.appendChild(jsHeader);
+      jsContainer.appendChild(jsSyntaxElement);
+      itemDiv.appendChild(jsContainer);
+
+      // I HATE THIS I MISS RUBY ON RAILS
+      jsToggleButton.addEventListener('click', () => {
+        const isJsVisible = !jsContainer.classList.contains('hidden');
+        hideAllExcept(jsContainer, jsContainer, componentElement, codeContainer);
+        jsContainer.classList.toggle('hidden', isJsVisible);
+        jsToggleButton.textContent = isJsVisible ? 'Show JavaScript' : 'Hide JavaScript';
+      });
+    }
+
     itemDiv.appendChild(componentElement); // Building the Component Element
     itemDiv.appendChild(codeContainer); // Finalizing the Inner div
     itemOuterDiv.appendChild(itemDiv); // Adding innder div to outer dic
     div.appendChild(itemContainerDiv); // Adding to main div
 
+    if(item.codeJs) {
+      const script = document.createElement('script');
+      script.src = item.jsFile;
+      document.body.appendChild(script);
+    }
+
     const toggleButton = itemContainerDiv.querySelector(`#toggle-${index}`);
     toggleButton.addEventListener('click', () => {
       const isComponentVisible = !componentElement.classList.contains('hidden');
-
+      hideAllExcept(componentElement, componentElement, jsContainer, codeContainer);
       componentElement.classList.toggle('hidden', isComponentVisible);
       codeContainer.classList.toggle('hidden', !isComponentVisible);
-
       toggleButton.textContent = isComponentVisible ? 'Show Component' : 'Show Syntax';
     });
   });
 
   return div; // Final div
+}
+
+function hideAllExcept(currentContainer, ...containers) {
+  containers.forEach(container => {
+    if (container !== currentContainer) {
+      container.classList.add('hidden');
+    }
+  });
 }
 
 // function escapeHTML(html) {
