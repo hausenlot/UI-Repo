@@ -22,6 +22,8 @@ Tailwind UI Components repository, Click the component you want then copy paste 
 - Added Components for Buttons
 - Added Prism.js for syntax
 - Added Components for Nav header
+- Added Components with Javascript
+- Added a script folders to store the scripts for element by storing its location in js and appending it on body if the content has a js.
 
 ## Diary
 ### Day 1
@@ -41,3 +43,11 @@ Tailwind UI Components repository, Click the component you want then copy paste 
 - Ask claude for prism.js and styling the syntax container
 - Added a Testing div for the components that I will paste inside the component-list.json
 - Adjust the syntax container to overflow via y axis too since the syntaxes are getting longer and longer
+### Day 6
+- Added an Option for Javascript so I just copied how the we make a div for syntax of HTML
+- Problem is the toggle button I am too confused now and since it should only happen if there's a jsContainer I cant explicity declare it
+- Its kinda fix but it doesnt look good.
+- Problem again is the component.js is loading first before the element is appended
+- switching strategy by adding a dedicated script for that element and appending it on body so if there's a lot of element that uses js i will have a lot of it
+- Problem is I havent stress tested this so lets wing it.
+- Element with JS now works and also it displays its syntax too. Pretty cool~
