@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     // iterate the components I have as cards and event listener
     componentData.forEach(component => {
       const availableComponent = componentListData.find(componentList=> componentList.id === component.id).content.length;
-      const content = createTemplate(component, availableComponent);
+      const content = createCards(component, availableComponent);
       componentContainer.appendChild(content);
       document.getElementById(content.id).addEventListener("click", () => {
         loadComponent(component.id);
@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 });
 
-function createTemplate(component, availableComponent) {
+function createCards(component, availableComponent) {
   const div = document.createElement('div');
   div.id = `div-section-${component.id}`;
   div.className = 'cards';
@@ -167,7 +167,6 @@ function componentContainer(sectionData) {
     const toggleButton = itemContainerDiv.querySelector(`#toggle-${index}`);
     toggleButton.addEventListener('click', () => {
       const isComponentVisible = !componentElement.classList.contains('hidden');
-      hideAllExcept(componentElement, componentElement, jsContainer, codeContainer);
       componentElement.classList.toggle('hidden', isComponentVisible);
       codeContainer.classList.toggle('hidden', !isComponentVisible);
       toggleButton.textContent = isComponentVisible ? 'Show Component' : 'Show Syntax';
