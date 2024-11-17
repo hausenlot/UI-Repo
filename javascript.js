@@ -58,7 +58,7 @@ function componentContainer(sectionData) {
   sectionData.content.forEach((item, index) => {
     const itemContainerDiv = document.createElement('div'); // Component Div
     const itemContainerHeader = document.createElement('div'); // Component Header Div
-    itemContainerHeader.className = 'item-container-header mb-4';
+    itemContainerHeader.className = 'item-container-header';
     itemContainerHeader.innerHTML = `
       <h3 class="text-lg font-semibold text-dark-primary">${item.title}</h3>
       <button id="toggle-${index}" class="text-blue-600 hover:text-blue-700 underline cursor-pointer transition-colors">Show Syntax</button>
@@ -74,7 +74,7 @@ function componentContainer(sectionData) {
 
     const componentElement = document.createElement('div'); // Component Element for inner div
     componentElement.innerHTML = item.code;
-    componentElement.classList.add('component-view', 'p-4');
+    componentElement.classList.add('p-4');
 
     const codeContainer = document.createElement('div'); // Syntax Element for inner div
     codeContainer.className = 'code-container hidden rounded-lg overflow-hidden border border-gray-700';
@@ -126,7 +126,7 @@ function componentContainer(sectionData) {
 
       const jsSyntaxElement = document.createElement('pre'); // Code element for JS Syntax
       jsSyntaxElement.id = `code-js-${index}`;
-      jsSyntaxElement.className = 'syntax-content bg-gray-900 p-4 overflow-x-auto overflow-y-auto font-mono text-sm leading-6 text-gray-300';
+      jsSyntaxElement.className = 'syntax-content p-4 overflow-x-auto overflow-y-auto font-mono text-sm leading-6 text-gray-300';
       
       // Format and highlight the JavaScript code
       const formattedJsCode = item.codeJs
