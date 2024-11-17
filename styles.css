@@ -28,7 +28,7 @@ body {
 }
 
 .item-container-header {
-  @apply flex
+  @apply flex  mb-4
 }
 
 .outer-container {
@@ -120,6 +120,18 @@ body {
 
 .syntax-content .token.punctuation {
   color: #808080;
+}
+
+.syntax-content .token.function {
+  color: #fff954;
+}
+
+.syntax-content .token.operator {
+  background-color: transparent !important;
+  color: #9cdcfe;
+}
+.syntax-content .token.keyword {
+  color: #047cbd;
 }
 
 .code-container {

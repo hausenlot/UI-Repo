@@ -63,5 +63,30 @@
         
       }
     ]
+  },
+  {
+    "id": 3,
+    "title": "dropdowns",
+    "content": [
+      {
+        "id": 1,
+        "title": "Basic Dropdown",
+        "code": "<div class='text-center'> <!-- Remove this if you don't want it centered--><button id='dropdownButton' class='bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none'>Dropdown</button><div id='dropdownMenu' class='absolute left-1/2 mt-2 w-40 bg-white border border-gray-200 rounded-md shadow-lg hidden transform -translate-x-1/2'> <!-- Remove left-1/2 and transform -translate-x-1/2 if dont want centered--><a href='#' class='block px-4 py-2 text-gray-700 hover:bg-gray-100'>Option 1</a><div class='border-t border-gray-200'></div><a href='#' class='block px-4 py-2 text-gray-700 hover:bg-gray-100'>Option 2</a><div class='border-t border-gray-200'></div><a href='#' class='block px-4 py-2 text-gray-700 hover:bg-gray-100'>Option 3</a></div></div> <!-- Remove this if you don't want it centered-->",
+        "codeJs": "const dropdownButton = document.getElementById('dropdownButton');const dropdownMenu = document.getElementById('dropdownMenu');dropdownButton.addEventListener('click', () => {dropdownMenu.classList.toggle('hidden');});",
+        "jsFile": "./scripts/cl-2-4.js"
+      },
+      {
+        "id": 2,
+        "title": "Basic Dropdown with search",
+        "code": "<div class='text-center'><button id='dropdownButton-cl-3-2' class='bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none'>Dropdown</button><div id='dropdownMenu-cl-3-2' class='absolute left-1/2 mt-2 w-60 bg-white border border-gray-200 rounded-md shadow-lg hidden transform -translate-x-1/2'><input type='text' id='searchInput-cl-3-2' class='w-full px-4 py-2 border-b border-gray-200 focus:outline-none' placeholder='Search...' /><div id='dropdownOptions-cl-3-2'><a href='#' class='block px-4 py-2 text-gray-700 hover:bg-gray-100'>Option 1</a><div class='border-t border-gray-200'></div><a href='#' class='block px-4 py-2 text-gray-700 hover:bg-gray-100'>Option 2</a><div class='border-t border-gray-200'></div><a href='#' class='block px-4 py-2 text-gray-700 hover:bg-gray-100'>Option 3</a></div></div></div>",
+        "codeJs": "const dropdownButton = document.getElementById('dropdownButton-cl-3-2');const dropdownMenu = document.getElementById('dropdownMenu-cl-3-2');const searchInput = document.getElementById('searchInput-cl-3-2');const dropdownOptions = document.getElementById('dropdownOptions-cl-3-2');dropdownButton.addEventListener('click', () => {dropdownMenu.classList.toggle('hidden');});searchInput.addEventListener('input', () => {const searchValue = searchInput.value.toLowerCase();const options = dropdownOptions.querySelectorAll('a');options.forEach(option => {if (option.textContent.toLowerCase().includes(searchValue)) {option.style.display = 'block';} else {option.style.display = 'none';}});});",
+        "jsFile": "./scripts/cl-3-2.js"
+      },
+      {
+        "id": 3,
+        "title": "Dropdown Radio buttons",
+        "code": "<div class='text-center'><button id='dropdownButton-cl-3-3' class='bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none'>Dropdown</button><div id='dropdownMenu-cl-3-3' class='absolute left-1/2 mt-2 w-40 bg-white border border-gray-200 rounded-md shadow-lg hidden transform -translate-x-1/2'><label for='radio-1' class='block px-4 py-2 hover:bg-gray-100 cursor-pointer'><div class='flex items-center p-2'><input id='radio-1' type='radio' value='1' name='default-radio' class='w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500'><span class='w-full ms-2 font-medium text-gray-700'>Radio 1</span></div></label><div class='border-t border-gray-200'></div><label for='radio-2' class='block px-4 py-2 hover:bg-gray-100 cursor-pointer'><div class='flex items-center p-2'><input id='radio-2' type='radio' value='2' name='default-radio' class='w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500'><span class='w-full ms-2 font-medium text-gray-700'>Radio 2</span></div></label><div class='border-t border-gray-200'></div><label for='radio-3' class='block px-4 py-2 hover:bg-gray-100 cursor-pointer'><div class='flex items-center p-2'><input id='radio-3' type='radio' value='3' name='default-radio' class='w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500'><span class='w-full ms-2 font-medium text-gray-700'>Radio 3</span></div></label></div></div>"
+      }
+    ]
   }
 ]

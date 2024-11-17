@@ -24,6 +24,7 @@ Tailwind UI Components repository, Click the component you want then copy paste 
 - Added Components for Nav header
 - Added Components with Javascript
 - Added a script folders to store the scripts for element by storing its location in js and appending it on body if the content has a js.
+- Added Dropdown Components
 
 ## Diary
 ### Day 1
@@ -51,3 +52,6 @@ Tailwind UI Components repository, Click the component you want then copy paste 
 - switching strategy by adding a dedicated script for that element and appending it on body so if there's a lot of element that uses js i will have a lot of it
 - Problem is I havent stress tested this so lets wing it.
 - Element with JS now works and also it displays its syntax too. Pretty cool~
+### Day 7
+- Added some Dropdowns
+- Realize I can actually just used 1 javascript function if I use a querySelecter instead and use a class or a partial of an ID to search will change this tomorrow
