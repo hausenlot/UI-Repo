@@ -35,6 +35,7 @@ Tailwind UI Components repository, Click the component you want then copy paste 
 - Added Dropdown Components
 - Adjusted how I give listeners from the javascript if the function that I need is simple I will share it to other component.
 - Added Search Bar Component
+- Added Checkbox component
 
 ## Diary
 ### Day 1
@@ -70,3 +71,4 @@ Tailwind UI Components repository, Click the component you want then copy paste 
 - There ya go adjusted the javascript so it can take a lot of id. not the best practice but I will change this to class I guess?
 - Added more Dropdown components
 - Added Search bar component
+- Added Checkbox component
