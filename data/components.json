@@ -14,5 +14,9 @@
   {
     "id": 4,
     "title": "Search Bar"
+  },
+  {
+    "id": 5,
+    "title": "Checkbox"
   }
 ]
