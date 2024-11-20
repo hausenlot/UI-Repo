@@ -1,1 +1,6 @@
-Resused ./scripts/cl-2-4.js on id: 3 id: 1 title: "Basic Dropdown"
+./scripts/cl-2-4.js
+- id: 3 id: 1 "title": "Basic Dropdown"
+- id: 3 id: 3 "title": "Dropdown Radio buttons"
+- id: 3 id: 4 "title": "Dropdown Checkboxes"
+./scripts/cl-3-2.js
+- id: 3 id: 2 "title": "Basic Dropdown with search"

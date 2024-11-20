@@ -1,9 +1,7 @@
 
-const dropdownButton = document.getElementById('dropdownButton');
-const dropdownMenu = document.getElementById('dropdownMenu');
+const dropdownButton = document.getElementById('dropdownButton-cl-2-4');
+const dropdownMenu = document.getElementById('dropdownMenu-cl-2-4');
 
-if (dropdownButton && dropdownMenu) {
-  dropdownButton.addEventListener('click', () => {
-    dropdownMenu.classList.toggle('hidden');
-  });
-}
+dropdownButton.addEventListener('click', () => {
+  dropdownMenu.classList.toggle('hidden');
+});

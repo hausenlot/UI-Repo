@@ -1,7 +1,15 @@
 # UI-Repo
 Tailwind UI Components repository, Click the component you want then copy paste it.
 
-# Specification
+# Current Status
+- It look shit in any resolution besides 1440p and 1080p
+- So far it looks fast maybe because the max components inside the content that I have right now is 6
+- There's no spaghetti code so far for the javacsripts. It works as intended.
+- Can Copy pasta right out of the box as you have tailwind
+- Only Dark mode.
+- Components inside the container doesnt scale. For now
+
+# The plan
 - Static Website Using HTML, Tailwind CSS and Javascript
 - Should be responsive but not tailored for mobile devices (To reduce development time)
 - JSON file as Database for cheap deployment
@@ -25,6 +33,8 @@ Tailwind UI Components repository, Click the component you want then copy paste 
 - Added Components with Javascript
 - Added a script folders to store the scripts for element by storing its location in js and appending it on body if the content has a js.
 - Added Dropdown Components
+- Adjusted how I give listeners from the javascript if the function that I need is simple I will share it to other component.
+- Added Search Bar Component
 
 ## Diary
 ### Day 1
@@ -55,3 +65,8 @@ Tailwind UI Components repository, Click the component you want then copy paste 
 ### Day 7
 - Added some Dropdowns
 - Realize I can actually just used 1 javascript function if I use a querySelecter instead and use a class or a partial of an ID to search will change this tomorrow
+### Day 8
+- Got sick. 2 days down the drain without progress
+- There ya go adjusted the javascript so it can take a lot of id. not the best practice but I will change this to class I guess?
+- Added more Dropdown components
+- Added Search bar component

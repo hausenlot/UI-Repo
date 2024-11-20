@@ -1,15 +1,19 @@
 console.log("Script cl-2-4.js loaded!");
 
-function attachDropdownListener() {
+function attachDropdownListeners() {
   console.log("Attaching listener");
-  const dropdownButton = document.getElementById('dropdownButton');
-  const dropdownMenu = document.getElementById('dropdownMenu');
+  const dropdownButtons = document.querySelectorAll('#dropdownButton-cl-2-4');
+  const dropdownMenus = document.querySelectorAll('#dropdownMenu-cl-2-4');
+  console.log(dropdownButtons, dropdownMenus);
+  dropdownButtons.forEach((button, index) => {
+    const menu = dropdownMenus[index];
 
-  if (dropdownButton && dropdownMenu) {
-    dropdownButton.addEventListener('click', () => {
-      dropdownMenu.classList.toggle('hidden');
-    });
-  }
+    if (menu) {
+      button.addEventListener('click', () => {
+        menu.classList.toggle('hidden');
+      });
+    }
+  });
 }
 
-attachDropdownListener();
+attachDropdownListeners();
