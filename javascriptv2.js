@@ -25,7 +25,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     const sectionData = data.find(component => component.id === componentList);
     const content = componentContainer(sectionData);
     container.appendChild(content);
-    const contentParams = componentParams(sectionData);
+    componentParams(sectionData);
+    console.log("should have appended");
   }
 
 });
@@ -69,18 +70,19 @@ function componentContainer(sectionData) {
   return div;
 }
 
-function componentParams(){
+function componentParams(sectionData){
   const dynamicComponent = document.getElementById("dynamic-component");
   const mainDiv = document.getElementById(`${sectionData.title}-container`);
-  // TEST CONTAINER
-  const itemParamDiv = document.createElement('div');
-  itemParamDiv.className = 'outer-container';
-  itemContainerDiv.appendChild(itemParamDiv);
 
-  const itemDiv1 = document.createElement('div');
+  const itemContainerDiv1 = document.createElement('div');
+  const itemOuterDiv1 = document.createElement('div'); // Outer div for Component Content
+  itemOuterDiv1.className = 'outer-container';
+  itemContainerDiv1.appendChild(itemOuterDiv1); // Added Outer Component content div inside the component div
+  const itemDiv1 = document.createElement('div'); // Inner div for outer div
   itemDiv1.className = 'item-component-container';
-
   const componentElement1 = document.createElement('div');
+  componentElement1.classList.add('p-4');
+
   const roundButton = document.createElement("button");
   const bgButton = document.createElement("button");
   const resetButton = document.createElement("button");
@@ -115,8 +117,8 @@ function componentParams(){
 
   componentElement1.classList.add('p-4');
 
-  itemDiv1.appendChild(componentElement1);
-  itemParamDiv.appendChild(itemDiv1);
-  mainDiv.appendChild(itemContainerDiv);
+  itemDiv1.appendChild(componentElement1); // Building the Component Element
+  itemOuterDiv1.appendChild(itemDiv1); // Adding innder div to outer dic
+  mainDiv.appendChild(itemContainerDiv1); // Adding to main div
   
 }

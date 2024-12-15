@@ -77,3 +77,7 @@ Tailwind UI Components repository, Click the component you want then copy paste 
 - While doing the Technical Assessments a sudden inspiration comes up with me, Instead of putting a lot of UI in the json file why not just put one then add different customization in the other json file then load it at the same time with the component code?
 - Idea is we render a barebone element and a set of buttons/sliders/input field that will affect the appearance of the rendered barebone element.
 - Going to do a proof of concept first, gotta do experiment and sht.
+- Proof of concept done
+- New Flow: Load the render component > append to to document > call function to render the params 
+- We are going to fetch the available Params for that component in another json file or we just load everything and disable it via json file if param is not applicable on that element.
+- Tomorrow will draw a flowchart and a psuedo code then make another proof of concept for that flowchart. 
