@@ -72,3 +72,8 @@ Tailwind UI Components repository, Click the component you want then copy paste 
 - Added more Dropdown components
 - Added Search bar component
 - Added Checkbox component
+### Day 9
+- I gotten a Job Interview and 2 Technical Assesment So i kinda stop so I can focus on it, I might not get pass on the interview but you never know, So while waiting and assuming its a bad one I'll just focus on something I can do.
+- While doing the Technical Assessments a sudden inspiration comes up with me, Instead of putting a lot of UI in the json file why not just put one then add different customization in the other json file then load it at the same time with the component code?
+- Idea is we render a barebone element and a set of buttons/sliders/input field that will affect the appearance of the rendered barebone element.
+- Going to do a proof of concept first, gotta do experiment and sht.
