@@ -81,3 +81,9 @@ Tailwind UI Components repository, Click the component you want then copy paste 
 - New Flow: Load the render component > append to to document > call function to render the params 
 - We are going to fetch the available Params for that component in another json file or we just load everything and disable it via json file if param is not applicable on that element.
 - Tomorrow will draw a flowchart and a psuedo code then make another proof of concept for that flowchart. 
+### Day 10
+- Okay I got this one in a bag, Already setted up the new flow and optimized how to render the code and also refactor the code its too dirty, It might improve more but for now its pretty good.
+- Decided to ditch the idea of getting another json file. Instead we are storing the allowedParams we will seperate each params via function and call them in paramsContainer function with a loop base on the allowedParams variable.
+- For now its displaying all params that i have (2) and also is still inside paramsContainer function will seperate it soon
+- Learned pretty good tricks from return. feelsgoodman
+- Once I seperated it and its reading from the allowedParams we will make the code generator.

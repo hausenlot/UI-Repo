@@ -21,6 +21,7 @@
         },
         height: {
           '90' : '23rem',
+          '128': '28rem',
         },
         colors: {
           dark: {
