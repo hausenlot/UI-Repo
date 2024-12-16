@@ -2,7 +2,8 @@
   {
     "id": 1,
     "title": "button",
-    "code": "<button>Standard Button</button>"
+    "code": "<button class='border border-gray-200 px-4 py-2'>Standard Button</button>",
+    "allowedParams": [1,2]
   }
 ]
       
