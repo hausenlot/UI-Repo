@@ -65,7 +65,7 @@ function renderComponentContainer(componentData) {
 
 function renderConsoleContainer(componentData) {
   // The things I will pass eventually
-  const allowedParams = 'Placeholder'
+  const allowedParams = componentData.allowedParams
   const baseComponent = componentData.code
 
   // This is the already appended hence existing container in the document. 
@@ -78,73 +78,138 @@ function renderConsoleContainer(componentData) {
   // Params content going to a function to handle the rendering/creation of the Params Container.
   const paramsContent = paramsContainer(baseComponent, allowedParams); // I'll pass the allowed parameters here from the json file once I finalized everything.
 
-  // Code Container ** Just a Placeholder so my brain dont collapse ** 
-  const codeContainer = document.createElement('div');
-  codeContainer.className = 'params-container'
+  // Code Content. Instead of using the code in json file and edit it we will use the existing one in the DOM. This will have a lot of issue for sure need to optimize this.
+  const codeContent = codeContainer();
 
   consoleContainer.appendChild(paramsContent);
-  consoleContainer.appendChild(codeContainer);
+  consoleContainer.appendChild(codeContent);
   componentContainer.appendChild(consoleContainer);
 }
 
-// I might seperate the Parametes in other functions to call using the allowedParams in json file so I can just make a loop what I need here.
-function paramsContainer(baseComponent, allowedParams){
+function paramsContainer(baseComponent, allowedParams) {
   // Params Container
   const paramsContainer = document.createElement('div');
   paramsContainer.className = 'params-container'
+  
+  const resetButton = resetParams(baseComponent);
+  const functionMap = {
+    1: addRoundedParams,
+    2: addBgParams
+  }
 
-  // Buttons ** Will improve this with sliders/color pickers for custom values
+  allowedParams.forEach(param => {
+    if (functionMap[param]) {
+        const response = functionMap[param]();
+        paramsContainer.appendChild(response);
+    }
+  });
+
+  paramsContainer.appendChild(resetButton) // Default Params
+  
+  return paramsContainer;
+}
+
+function codeContainer() {
+  // Code Container
+  const codeContainer = document.createElement('div');
+  codeContainer.className = 'code-container'
+
+  // We will reuse the componentPreviewContainerQuery because why not
+  const { componentElement } = componentPreviewContainerQuery();
+  const syntaxElement = document.createElement('pre');
+  syntaxElement.classList.add('language-html');
+  const codeElement = document.createElement('code');
+
+  const formattedCode = componentElement.outerHTML
+      .replace(/></g, '>\n<')
+      .split('\n')
+      .map(line => line.trim())
+      .join('\n');
+  const highlightedCode = Prism.highlight(formattedCode, Prism.languages.html, 'html');
+  codeElement.innerHTML = highlightedCode
+  syntaxElement.appendChild(codeElement);
+  codeContainer.appendChild(syntaxElement)
+
+  return codeContainer
+}
+
+// Params Functions Starts here
+function addRoundedParams() {
   const roundButton = document.createElement("button");
-  const bgButton = document.createElement("button");
-  const resetButton = document.createElement("button");
 
   roundButton.setAttribute('id', 'add-rounded');
   roundButton.textContent = 'Add Rounded';
-  roundButton.className = 'params-button'
+  roundButton.className = 'params-button';
+
+  roundButton.addEventListener("click", () => {
+    const { componentElement } = componentPreviewContainerQuery();
+    componentElement.classList.add("rounded-lg");
+    updateCodeContainer();
+  });
+
+  return roundButton
+}
+
+function addBgParams() {
+  const bgButton = document.createElement("button");
 
   bgButton.setAttribute('id', 'add-bg');
   bgButton.textContent = 'Add Background';
-  bgButton.className = 'params-button'
+  bgButton.className = 'params-button';
+
+  bgButton.addEventListener("click", () => {
+    const { componentElement } = componentPreviewContainerQuery();
+    componentElement.classList.add("bg-blue-500", "text-slate-900");
+    updateCodeContainer();
+  });
+
+  return bgButton
+}
+
+function resetParams(baseComponent) {
+  const resetButton = document.createElement("button");
 
   resetButton.setAttribute('id', 'reset-styles');
   resetButton.textContent = 'Reset Styles';
   resetButton.className = 'params-button'
 
-  roundButton.addEventListener("click", () => {
-    const { componentElement } = paramsQueryContainer(); // Learned Something once again
-    console.log(componentElement)
-    componentElement.classList.add("rounded-lg");
-  });
-
-  bgButton.addEventListener("click", () => {
-    const { componentElement } = paramsQueryContainer(); // Learned Something once again
-    console.log(componentElement)
-    componentElement.classList.add("bg-blue-500", "text-slate-900");
-  });
-
   resetButton.addEventListener("click", () => {
-    const {componentPreviewContainer, componentElement} = paramsQueryContainer(); // Learned Something once again
-    console.log(componentPreviewContainer, componentElement)
+    const {componentPreviewContainer, componentElement} = componentPreviewContainerQuery();
     componentPreviewContainer.removeChild(componentElement)
     componentPreviewContainer.innerHTML = baseComponent
+    updateCodeContainer();
   });
 
-  paramsContainer.appendChild(roundButton);
-  paramsContainer.appendChild(bgButton);
-  paramsContainer.appendChild(resetButton);
-
-  return paramsContainer;
+  return resetButton
 }
+// Params Functions Ends here
 
-// This is for the listeners. So it can update everytime they click instead of declaring it once.
-function paramsQueryContainer() {
-  // Query the element that we will customize
+// Helpers functions Starts Here
+function componentPreviewContainerQuery() {
   const componentPreviewContainer = document.querySelector('.component-preview-container');
   const componentElement = componentPreviewContainer.firstElementChild;
 
-  // Learned Something once again
   return {
     componentPreviewContainer: componentPreviewContainer,
     componentElement: componentElement
   }
 }
+
+function codeContainerQuery() {
+  const codeContainer = document.querySelector('.code-container');
+  
+  return codeContainer
+}
+
+// There might be an optimized/beautiful way to do it but this is much easier.
+function updateCodeContainer() {
+  const codeContainerContent = codeContainerQuery();
+  codeContainerContent.remove()
+
+  const consoleContainer = document.querySelector('.console-container');
+
+  const newCodeContainer = codeContainer();
+  consoleContainer.appendChild(newCodeContainer);
+}
+
+// Helpers functions Ends Here
